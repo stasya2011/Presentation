@@ -1,0 +1,324 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	<style>
+		
+element.style {
+    color: white;
+}
+	li{
+		list-style-type: square;
+	}
+	li:hover{
+	color: rgb(131, 241, 4);
+
+	}
+
+.reveal h1:nth-child(1){
+	margin-top: -100px;
+}
+	/* .reveal .slide-background:nth-child(2)>.slide-background-content{
+		background-image: url(https://refactoring.guru/images/patterns/content/index/full/patterns-01.png);
+		background-size: auto 400px;
+		background-position: center 90%;
+	}
+		 */
+
+
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+
+			<section data-auto-animate data-background-color="teal" data-background-image='https://refactoring.guru/images/patterns/content/index/full/patterns-01.png'
+			data-background-size=' auto 400px' data-background-position= 'center 90%'>
+				<h1>Design Patterns</h1>
+			</section>
+			<section data-auto-animate data-background-color="teal" data-background-image='https://refactoring.guru/images/patterns/content/index/full/patterns-01.png'
+			data-background-size=' auto 400px' data-background-position= 'center 90%'>
+				<h1>Design Patterns</h1>
+				<h1>in JavaScript</h1>
+			</section>
+
+			<section data-background-color="teal">
+				<h3 style="color: yellowgreen"> What are design patterns? </h3>
+				<p class='fragment fade-up' style="color: white;"> Design patterns are typical solutions to commonly happening
+					problems in software design.</p>
+			</section>
+
+
+			<section data-background-color="teal">
+				<h3 style="color: yellowgreen"> Why should we learn patterns? </h3>
+				<ul style="margin-left: 100px">
+					<li class='fragment fade-up' style="color: white;">
+						You can use proven solutions.
+					</li>
+
+					<li class='fragment fade-up' style="color: white;">
+						You seldom can be wrong because use code standardization.
+					</li>
+					<li class='fragment fade-up' style="color: white;">
+						Design patterns define a common language that you and your teammates can use to communicate more
+						efficiently.
+					</li>
+				</ul>
+			</section>
+
+
+
+			<section data-background-color="teal">
+				<h3 style="color: yellowgreen">The Singleton Pattern</h3>
+				<section>
+					<img style="margin-top: 150px;" src="https://refactoring.guru/images/patterns/content/singleton/singleton.png"
+						alt="singleton">
+				</section>
+
+				<section>
+					<p style="margin-top: -10px; color: white;">
+						Singleton is a creational design pattern that lets you ensure that a class has only one instance,
+						while providing a global access point to this instance.
+					</p>
+				</section>
+
+				<section>
+					<table style=' margin-left: -150px; width: 120%'>
+						<tr>
+							<th style="text-align: center; vertical-align: middle; padding: 10px; color: yellowgreen">
+								plus
+							</th>
+							<th style="text-align: center; padding: 10px; color: yellowgreen">
+								minus
+							</th>
+						</tr>
+
+						<tr>
+							<td style=" padding: 20px;" class='fragment fade-up' data-fragment-index="1">
+								<span style="color: rgb(57, 231, 57)">&#x2714; </span> Only a single instance.
+							</td>
+
+							<td style="padding: 20px;" class='fragment fade-up' data-fragment-index="4">
+								<span style="color: rgb(247, 0, 0)">&#x2718;</span> Violates the Single Responsibility Principle.
+							</td>
+						</tr>
+
+						<tr>
+							<td style="padding: 20px;" class='fragment fade-up' data-fragment-index="2">
+								<span style="color: rgb(57, 231, 57)">&#x2714; </span> Global access point to that instance.
+							</td>
+
+							<td style="padding: 20px;" class='fragment fade-up' data-fragment-index="5">
+								<span style="color: rgb(247, 0, 0)">&#x2718;</span> Сan mask bad design, for instance.
+							</td>
+						</tr>
+
+
+						<tr>
+							<td style="padding: 20px;" class='fragment fade-up' data-fragment-index="3">
+								<span style="color: rgb(57, 231, 57)">&#x2714; </span> Initialized only when it’s requested for the
+								first time.
+							</td>
+
+						</tr>
+					</table>
+				</section>
+
+				<section>
+					<pre>
+							<code data-trim data-noescape data-line-numbers="1|2-10|11|3-5|6-9|12|3-5|13">
+								let instance = null;
+								function User(name, age) {
+									if(instance) {
+										return instance;
+									}
+									instance = this;
+									this.name = name;
+									this.age = age;
+									return instance;
+								}
+								const user1 = new User('Peter', 25);
+								const user2 = new User('Mark', 24);
+								console.log(user1 === user2); // true
+							</code>
+						</pre>
+				</section>
+				<!-- Когда вызывается функция-конструктор, она, в первую очередь, проверяет, существует ли объект instance. Если соответствующая переменная не инициализирована, в instance записывают this. Если же в переменной уже есть ссылка на объект, конструктор просто возвращает instance, то есть — ссылку на уже существующий объект. -->
+			</section>
+
+
+
+			<section data-background-color="teal">
+				<h3 style="color: yellowgreen">Factory Method</h3>
+				<section>
+					<img style="margin-top: 150px;"
+						src="https://refactoring.guru/images/patterns/content/factory-method/factory-method-en.png?id=cfa26f33dc8473e803fa"
+						alt="factory">
+				</section>
+
+
+				<section>
+					<p style="margin-top: -10px; color: white;">
+						Factory Method is a creational design pattern that provides an interface for creating objects in a
+						superclass, but allows subclasses to alter the type of objects that will be created.
+					</p>
+				</section>
+
+				<section>
+					<table style=' margin-left: -150px; width: 120%'>
+						<tr>
+							<th style="text-align: center; vertical-align: middle; padding: 10px; color: yellowgreen">
+								plus
+							</th>
+							<th style="text-align: center; padding: 10px; color: yellowgreen">
+								minus
+							</th>
+						</tr>
+
+						<tr>
+							<td style="padding: 20px;" class='fragment fade-up' data-fragment-index="1">
+								<span style="color: rgb(57, 231, 57)">&#x2714; </span> Open/Closed Principle.
+							</td>
+							<td style="padding: 20px;" class='fragment fade-up' data-fragment-index="3">
+								<span style="color: rgb(247, 0, 0)">&#x2718; </span> The code may become more complicated;
+							</td>
+						</tr>
+						<tr>
+							<td style="padding: 20px;" class='fragment fade-up' data-fragment-index="2">
+								<span style="color: rgb(57, 231, 57)">&#x2714; </span> Single Responsibility Principle
+							</td>
+						</tr>
+					</table>
+				</section>
+
+				<section>
+					<p style="text-align: left; padding-left: 80px;">
+						We have two classes for create objects
+
+					</p>
+					<pre><code data-trim data-noescape data-line-numbers="1-7|8-14">
+							class Car{
+								constructor(options) {
+									this.doors = options.doors || 4;
+									this.state = options.state || 'brand new';
+									this.color = options.color || 'white';
+								}
+							}
+							class Truck {
+								constructor(options) {
+									this.doors = options.doors || 4;
+									this.state = options.state || 'used';
+									this.color = options.color || 'black';
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+
+				<section>
+					<p style="text-align: left; padding-left: 80px;">
+						This is the Factory
+					</p>
+					<pre>
+						<code data-trim data-noescape data-line-numbers="0|2-9|3-5|6-8">
+						class VehicleFactory {
+							createVehicle(options) {
+								if(options.vehicleType === 'car') {
+									return new Car(options);
+								}
+									else if(options.vehicleType === 'truck') {
+										return new Truck(options);
+									}
+							}
+						}
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<p style="text-align: left; padding-left: 80px;">
+						Instances of the Factory was created
+					</p>
+					<pre>
+						<code data-trim data-noescape data-line-numbers="1|2-7|8-13">
+							const factory = new VehicleFactory();
+							const car = factory.createVehicle({
+								vehicleType: 'car',
+								doors: 4,
+								color: 'red',
+								state: 'Brand New'
+							});
+							const truck= factory.createVehicle({
+								vehicleType: 'truck',
+								doors: 2,
+								color: 'white',
+								state: 'used'
+							});
+						</code>
+					</pre>
+				</section>
+
+
+				<section>
+					<p style="text-align: left; padding-left: 80px;">
+						Check:
+					</p>
+					<pre>
+						<code data-trim data-noescape data-line-numbers="1-2|3-4|5|6">
+							//Car {doors: 4, state: "Brand New", color: "silver"}
+							console.log(car);
+							// Truck {doors: 2, state: "used", color: "white"}
+							console.log(truck);
+							console.log(car instanceof Car); // true
+							console.log(truck instanceof Truck); // true
+						</code>
+					</pre>
+				</section>
+			</section>
+
+
+			<section class="list" data-auto-animate data-background-color="teal" i="imgT">
+				<h3 style="color: yellowgreen"> Sources of information: </h3>
+				<ul>
+					<li><a style="color: white" href="https://refactoring.guru/design-patterns">Design-patterns</a></li>
+					<li><a style="color: white" href="https://monsterlessons.com/project/lessons/factory-pattern-v-javascript">Factory pattern in
+						Javascript</a></li>
+					<li>	<a style="color: white" href="https://dev.to/shijiezhou/top-10-javascript-patterns-every-developers-like-168p">Top 10 JavaScript
+						Patterns Every Developer Likes</a></li>
+					<li><a style="color: white" href="https://youtu.be/pH7LauSInc8">RS School. Design Patterns.</a></li>
+				</ul>
+			</section>
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
